@@ -1,0 +1,28 @@
+<ul class="nav-list right ">
+  {% assign menu = settings.main_menu %}
+  {% for link in linklists[menu].links %}
+  {%- assign child_list_handle = link.title | handleize -%}
+  <li>
+    <a href="{{link.url}}" title="{{link.title}}">{{link.title}}</a>
+    {% if linklists[child_list_handle].links != blank %}
+    <span class="arrow-right"><em class="fa fa-angle-right"></em></span>
+    <ul class="nav-submenu">
+      {% for childlink in linklists[child_list_handle].links %}
+      {% assign grand_child_list_handle = childlink.title | handle %}
+      <li>
+        <a href="{{childlink.url}}" title="{{childlink.title}}">{{childlink.title}}</a>
+        {% if linklists[grand_child_list_handle].links != blank %}
+        <span class="arrow-right"><em class="fa fa-angle-right"></em></span>
+        <ul class="second-subnav">
+          {% for grandchildlink in linklists[grand_child_list_handle].links %}
+          <li><a href="{{grandchildlink.url}}" title="{{grandchildlink.title}}">{{grandchildlink.title}}</a></li>	
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>          	
+      {% endfor %}
+    </ul>
+    {% endif %}
+  </li>
+  {% endfor %}
+</ul>
